@@ -12,12 +12,12 @@ body {
     background: #f8b6b6;
     font-family: Arial, sans-serif;
     text-align: center;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 h1 {
     font-size: 3em;
-    margin-top: 100px;
+    margin-top: 120px;
     color: white;
     text-shadow: 2px 2px 10px red;
 }
@@ -37,19 +37,26 @@ button {
     transition: 0.3s;
 }
 
-#termsBtn {
-    background: #ddd;
-}
-
 #yesBtn {
     background: #ff4d6d;
     color: white;
+}
+
+#noBtn {
+    background: #555;
+    color: white;
+    position: absolute;
+}
+
+#termsBtn {
+    background: white;
 }
 
 button:hover {
     transform: scale(1.1);
 }
 
+/* 📜 Caja términos */
 #termsBox {
     display: none;
     background: white;
@@ -60,12 +67,13 @@ button:hover {
     border-radius: 20px;
 }
 
+/* 💕 Final */
 #final {
     display: none;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
-/* 🌹 Flores flotando */
+/* 🌹 Flores */
 .flower {
     position: fixed;
     font-size: 25px;
@@ -77,7 +85,7 @@ button:hover {
     100% { transform: translateY(100vh); }
 }
 
-/* 💓 Animación temblar */
+/* 💓 Temblar imagen */
 @keyframes temblar {
     0% { transform: translate(0px, 0px); }
     20% { transform: translate(-3px, 2px); }
@@ -90,7 +98,7 @@ button:hover {
 #final img {
     width: 300px;
     border-radius: 25px;
-    margin-top: 30px;
+    margin-top: 20px;
     box-shadow: 0 0 30px rgba(255,0,100,0.8);
     animation: temblar 0.3s infinite;
 }
@@ -99,11 +107,13 @@ button:hover {
 
 <body>
 
-<button id="termsBtn">Ver Términos y Condiciones 📜</button>
-<button id="yesBtn">Sí mi amor ❤️</button>
+<button id="termsBtn">Ver Términos 📜</button>
 
-<h1>Sabía que dirías que sí 😍❤️</h1>
-<p>Prepárate para nuestro 14 de febrero 🌹✨</p>
+<h1>¿Quieres ser mi San Valentín? 😍</h1>
+<p>Prometo que será especial 💖</p>
+
+<button id="yesBtn">Sí mi amor ❤️</button>
+<button id="noBtn">No 😢</button>
 
 <div id="termsBox">
     <h2>Términos y Condiciones 💌</h2>
@@ -114,30 +124,41 @@ button:hover {
 </div>
 
 <div id="final">
-    <h2>Te amo muchísimo 💕</h2>
-    <!-- CAMBIA "foto.jpg" por el nombre real de tu imagen -->
+    <h2>Sabía que dirías que sí 😍❤️</h2>
+    <p>Prepárate para nuestro 14 de febrero 🌹✨</p>
     <img src="ee.jpg" alt="ee">
 </div>
 
 <script>
-const termsBtn = document.getElementById("termsBtn");
 const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const termsBtn = document.getElementById("termsBtn");
 const termsBox = document.getElementById("termsBox");
 const final = document.getElementById("final");
 
-termsBtn.onclick = function() {
-    termsBox.style.display = "block";
-};
+/* Botón NO huye */
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
 
+/* Mostrar final */
 yesBtn.onclick = function() {
     final.style.display = "block";
+};
+
+/* Mostrar términos */
+termsBtn.onclick = function() {
+    termsBox.style.display = "block";
 };
 
 function aceptar() {
     alert("Contrato aceptado 😍❤️ Ahora no se puede pelear 😌");
 }
 
-/* 🌹 Crear flores */
+/* 🌹 Flores */
 function crearFlor() {
     const flower = document.createElement("div");
     flower.classList.add("flower");
