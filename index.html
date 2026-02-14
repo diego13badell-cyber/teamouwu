@@ -9,18 +9,19 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(#ff9a9e, #fecfef);
     font-family: Arial, sans-serif;
+    background: linear-gradient(#ff9a9e, #fecfef);
     text-align: center;
-    overflow-x: hidden; /* permite scroll vertical */
-    min-height: 100vh;
+    overflow: hidden; /* ahora sí bloqueamos scroll */
+    height: 100vh;
 }
 
-/* TITULO */
-h1 {
-    margin-top: 120px;
-    font-size: 2.5em;
-    color: white;
+/* CONTENEDOR PRINCIPAL */
+#main {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* BOTONES */
@@ -69,36 +70,32 @@ button:hover {
     background: white;
     width: 90%;
     max-width: 400px;
-    margin: 100px auto;
+    margin: 120px auto;
     padding: 20px;
     border-radius: 20px;
 }
 
-/* CARTA */
-#carta {
-    display: none;
-    margin: 50px auto;
-    width: 300px;
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    transform: rotateX(90deg);
-    transition: 1s;
-}
-
-#abierta {
-    transform: rotateX(0deg);
-}
-
-/* FINAL */
+/* FINAL PANTALLA COMPLETA */
 #final {
     display: none;
-    margin-top: 50px;
-    margin-bottom: 100px;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#ff4d6d, #ff99ac);
+    top: 0;
+    left: 0;
+    color: white;
+}
+
+#finalContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #final img {
-    width: 280px;
+    width: 320px;
     border-radius: 20px;
     margin-top: 20px;
     animation: shake 0.3s infinite;
@@ -129,9 +126,12 @@ button:hover {
 
 <body>
 
-<h1>Antes de hacerte la pregunta... 💌</h1>
-
-<button id="termsBtn">Ver Términos 💖</button>
+<div id="main">
+    <h1>Antes de hacerte la pregunta... 💌</h1>
+    <button id="termsBtn">Ver Términos 💖</button>
+    <button id="yesBtn">Sí mi amor ❤️</button>
+    <button id="noBtn">No 😢</button>
+</div>
 
 <!-- MODAL -->
 <div id="termsModal">
@@ -144,20 +144,14 @@ button:hover {
     </div>
 </div>
 
-<button id="yesBtn">Sí mi amor ❤️</button>
-<button id="noBtn">No 😢</button>
-
-<div id="carta">
-    <h3>Mi amor 💖</h3>
-    <p>¿Me acompañas este 14 de febrero? 🌹✨</p>
-</div>
-
+<!-- FINAL -->
 <div id="final">
-    <h2>Sabía que dirías que sí 😍❤️</h2>
-    <img src="ee.jpg" alt="ee">
+    <div id="finalContent">
+        <h1>Sabía que dirías que sí 😍❤️</h1>
+        <img src="ee.jpg" alt="ee">
+    </div>
 </div>
 
-<!-- MÚSICA (OPCIONAL) -->
 <audio id="musica" src="musica.mp3"></audio>
 
 <script>
@@ -166,29 +160,23 @@ const termsModal = document.getElementById("termsModal");
 const acceptBtn = document.getElementById("acceptBtn");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const carta = document.getElementById("carta");
 const final = document.getElementById("final");
 const musica = document.getElementById("musica");
 
-/* Abrir términos */
+/* Mostrar términos */
 termsBtn.onclick = () => {
     termsModal.style.display = "block";
 };
 
-/* Aceptar términos */
+/* Aceptar */
 acceptBtn.onclick = () => {
     termsModal.style.display = "none";
     termsBtn.style.display = "none";
-    carta.style.display = "block";
-
-    setTimeout(() => {
-        carta.style.transform = "rotateX(0deg)";
-        yesBtn.style.display = "inline-block";
-        noBtn.style.display = "inline-block";
-    }, 500);
+    yesBtn.style.display = "inline-block";
+    noBtn.style.display = "inline-block";
 };
 
-/* Botón NO huye */
+/* NO huye */
 noBtn.addEventListener("mouseover", () => {
     const x = Math.random() * (window.innerWidth - 100);
     const y = Math.random() * (window.innerHeight - 50);
@@ -196,7 +184,7 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.style.top = y + "px";
 });
 
-/* Explosión corazones */
+/* Explosión */
 function explosion() {
     for (let i = 0; i < 30; i++) {
         const heart = document.createElement("div");
@@ -209,12 +197,12 @@ function explosion() {
     }
 }
 
-/* Botón SÍ */
+/* SÍ */
 yesBtn.onclick = () => {
     if (musica) musica.play().catch(()=>{});
     explosion();
+    document.getElementById("main").style.display = "none";
     final.style.display = "block";
-    final.scrollIntoView({ behavior: "smooth" });
 };
 </script>
 
