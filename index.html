@@ -2,209 +2,150 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Mi Amor 💖</title>
 
 <style>
-body {
-    margin: 0;
-    padding: 0;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
     font-family: Arial, sans-serif;
-    background: linear-gradient(#ff9a9e, #fecfef);
-    overflow: hidden; /* sin scroll */
+    background:#f497a9;
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
 }
 
-/* CONTENEDOR INICIAL */
-#main {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+/* Fondo corazones */
+body::before{
+    content:"💖 💕 💗 💓 💘 💞 💝 💟";
+    position:fixed;
+    font-size:40px;
+    opacity:0.2;
+    width:100%;
+    height:100%;
+    animation:float 20s linear infinite;
 }
 
-/* BOTONES */
-button {
-    padding: 15px 25px;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    margin: 10px;
-    transition: 0.3s;
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-100vh);}
 }
 
-button:hover {
-    transform: scale(1.1);
+h1{
+    font-size:38px;
+    color:white;
+    margin-bottom:15px;
 }
 
-#yesBtn {
-    background: #ff4d6d;
-    color: white;
-    display: none;
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    width:320px;
+    margin-bottom:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
 }
 
-#noBtn {
-    background: #444;
-    color: white;
-    position: absolute;
-    display: none;
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
 }
 
-#termsBtn {
-    background: white;
+.si{
+    background:#ff4d6d;
+    color:white;
 }
 
-/* MODAL */
-#termsModal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.no{
+    background:#444;
+    color:white;
 }
 
-#termsContent {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
+button:hover{
+    transform:scale(1.1);
 }
 
-/* FINAL PANTALLA COMPLETA */
-#final {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(#ff4d6d, #ff99ac);
-    color: white;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
+/* Imagen final */
+#final{
+    display:none;
+    margin-top:10px;
 }
 
-#finalContent {
-    max-width: 90%;
+#final img{
+    width:280px;
+    height:350px;
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(0,0,0,0.3);
 }
 
-#final img {
-    width: 320px;
-    max-width: 85vw;
-    border-radius: 20px;
-    margin-top: 20px;
-    animation: shake 0.3s infinite;
+/* Efecto temblor */
+@keyframes shake{
+    0%{transform:translate(0,0);}
+    25%{transform:translate(3px,-3px);}
+    50%{transform:translate(-3px,3px);}
+    75%{transform:translate(3px,3px);}
+    100%{transform:translate(0,0);}
 }
 
-/* TEMBLAR */
-@keyframes shake {
-    0% { transform: translate(0,0); }
-    25% { transform: translate(-3px,2px); }
-    50% { transform: translate(3px,-2px); }
-    75% { transform: translate(-2px,3px); }
-    100% { transform: translate(0,0); }
+.shake{
+    animation:shake 0.5s infinite;
 }
 
-/* CORAZONES */
-.heart {
-    position: fixed;
-    font-size: 25px;
-    animation: explode 2s ease-out forwards;
-}
-
-@keyframes explode {
-    0% { transform: scale(0); opacity:1; }
-    100% { transform: translateY(-200px) scale(2); opacity:0; }
-}
 </style>
 </head>
 
 <body>
 
-<div id="main">
-    <h1>Antes de hacerte la pregunta... 💌</h1>
-    <button id="termsBtn">Ver Términos 💖</button>
-    <button id="yesBtn">Sí mi amor ❤️</button>
-    <button id="noBtn">No 😢</button>
+<h1>Antes de hacerte la pregunta... 💌</h1>
+
+<div class="card">
+    <h2>Mi amor 💖</h2>
+    <p>¿Me acompañas este 14 de febrero? 🌹</p>
 </div>
 
-<!-- MODAL -->
-<div id="termsModal">
-    <div id="termsContent">
-        <h2>Términos y Condiciones</h2>
-        <p>1. No pelear 😡❌</p>
-        <p>2. Besitos obligatorios 💋</p>
-        <p>3. Amor infinito 💕</p>
-        <button id="acceptBtn">Acepto ❤️</button>
-    </div>
+<div>
+    <button class="si" onclick="aceptar()">Sí mi amor ❤️</button>
+    <button class="no" onmouseover="mover(this)">No 😢</button>
 </div>
 
-<!-- FINAL -->
 <div id="final">
-    <div id="finalContent">
-        <h1>Sabía que dirías que sí 😍❤️</h1>
-        <img src="ee.jpg" alt="ee">
-    </div>
+    <h1>Sabía que dirías que sí 😍❤️</h1>
+    <img src="ee.jpg" id="ee">
 </div>
-
-<audio id="musica" src="musica.mp3"></audio>
 
 <script>
-const termsBtn = document.getElementById("termsBtn");
-const termsModal = document.getElementById("termsModal");
-const acceptBtn = document.getElementById("acceptBtn");
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const final = document.getElementById("final");
-const musica = document.getElementById("musica");
 
-/* Mostrar términos */
-termsBtn.onclick = () => {
-    termsModal.style.display = "flex";
-};
-
-/* Aceptar */
-acceptBtn.onclick = () => {
-    termsModal.style.display = "none";
-    termsBtn.style.display = "none";
-    yesBtn.style.display = "inline-block";
-    noBtn.style.display = "inline-block";
-};
-
-/* NO huye */
-noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-});
-
-/* Explosión */
-function explosion() {
-    for (let i = 0; i < 30; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = Math.random() * 100 + "vh";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 2000);
-    }
+function mover(boton){
+    boton.style.position="absolute";
+    boton.style.top=Math.random()*80+"%";
+    boton.style.left=Math.random()*80+"%";
 }
 
-/* SÍ */
-yesBtn.onclick = () => {
-    musica.play().catch(()=>{});
-    explosion();
-    document.getElementById("main").style.display = "none";
-    final.style.display = "flex";
-};
+function aceptar(){
+    document.querySelector(".card").style.display="none";
+    document.querySelector(".si").style.display="none";
+    document.querySelector(".no").style.display="none";
+    document.querySelector("h1").style.display="none";
+    
+    document.getElementById("final").style.display="block";
+    
+    document.getElementById("foto").classList.add("shake");
+}
+
 </script>
 
 </body>
