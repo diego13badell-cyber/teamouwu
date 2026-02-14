@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Invitacion para mi cumpleaños </title>
+<title>Contrato del Amor ❤️</title>
 
 <style>
 body {
@@ -58,32 +58,68 @@ button {
     background-color: #ff4d6d;
     color: white;
 }
+
+#final {
+    display: none;
+    margin-top: 40px;
+}
+
+#final img {
+    width: 300px;
+    border-radius: 25px;
+    margin-top: 30px;
+    box-shadow: 0 0 30px rgba(255,0,100,0.8);
+    animation: aparecer 2s ease-in-out;
+}
+
+@keyframes aparecer {
+    from { opacity:0; transform: scale(0.5); }
+    to { opacity:1; transform: scale(1); }
+}
+
+.rosa {
+    position: fixed;
+    top: -50px;
+    font-size: 25px;
+    animation: caer linear infinite;
+}
+
+@keyframes caer {
+    0% { transform: translateY(-50px) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
 </style>
 </head>
 
 <body>
 
-<h1>Invitacion para pasar juntos hoy 14 de febrero</h1>
+<h1 id="titulo">¿Me acompañas este 14 de febrero? 💘🌹</h1>
 
-<button onclick="mostrarTerminos()">Términos y Condiciones </button>
-
-<button id="si" onclick="aceptar()"> si amor hermoso precioso bonito</button>
-<button id="no" onmouseover="mover()">otro dia 😍</button>
+<button onclick="mostrarTerminos()">Ver Términos y Condiciones 📜</button>
+<button id="si" onclick="aceptar()">Sí mi amor ❤️</button>
+<button id="no" onmouseover="mover()">No 😢</button>
 
 <div id="terminosBox">
-    <h3>Términos y Condiciones</h3>
+    <h3>📜 Términos y Condiciones del Amor</h3>
     <p>
-        prometo no pelear <br>
-        prometo hacer caso a mi hombre todo el dia <br>
+        ❤️ Prometo no pelear <br>
+        ❤️ Prometo dar abrazos ilimitados <br>
+        ❤️ Prometo besos extra ese día
     </p>
 
     <label>
         <input type="checkbox" id="checkAmor">
         Acepto cumplir el término principal:
-        <b>no pelear</b>
+        <b>No pelear 😌</b>
     </label>
     <br><br>
     <button id="aceptarTerminos" onclick="verificar()">Aceptar</button>
+</div>
+
+<div id="final">
+    <h1 style="color:white;">Sabía que dirías que sí 😍💖</h1>
+    <h2 style="color:white;">Prepárate para nuestro 14 de febrero 🌹✨</h2>
+    <img src="nosotros.jpg">
 </div>
 
 <script>
@@ -97,45 +133,17 @@ function verificar() {
     if (check.checked) {
         document.getElementById("terminosBox").style.display = "none";
         document.getElementById("si").style.display = "inline-block";
-        alert("ahora puedes decir que sí.");
+        alert("Contrato aceptado 😌💘 Ahora puedes decir que sí.");
     } else {
-        alert("");
+        alert("Debes aceptar el término principal 😏");
     }
 }
 
 function aceptar() {
-    document.body.innerHTML = `
-    <div style="text-align:center; padding-top:50px;">
-        <h1 style="color:white; font-size:45px;">
-            Sabía que dirías que sí 😍💖
-        </h1>
-
-        <h2 style="color:white;">
-            Prepárate para nuestro 14 de febrero 🌹✨
-        </h2>
-
-        <img src="ee.jpg" 
-             style="
-                width:300px;
-                border-radius:25px;
-                margin-top:30px;
-                box-shadow: 0 0 30px rgba(255,0,100,0.8);
-                animation: aparecer 2s ease-in-out;
-             ">
-    </div>
-
-    <style>
-    @keyframes aparecer {
-        from { opacity:0; transform: scale(0.5); }
-        to { opacity:1; transform: scale(1); }
-    }
-    </style>
-    `;
-}
-    document.body.innerHTML = `
-    <h1>h1>
-    <h2 style="color:white;">hoy nos vemos amor, tranquilita</h2>
-    `;
+    document.getElementById("titulo").style.display = "none";
+    document.getElementById("si").style.display = "none";
+    document.getElementById("no").style.display = "none";
+    document.getElementById("final").style.display = "block";
 }
 
 function mover() {
@@ -144,6 +152,21 @@ function mover() {
     document.getElementById("no").style.left = x + "px";
     document.getElementById("no").style.top = y + "px";
 }
+
+function crearRosa() {
+    const rosa = document.createElement("div");
+    rosa.classList.add("rosa");
+    rosa.innerHTML = "🌹";
+    rosa.style.left = Math.random() * window.innerWidth + "px";
+    rosa.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(rosa);
+
+    setTimeout(() => {
+        rosa.remove();
+    }, 8000);
+}
+
+setInterval(crearRosa, 500);
 </script>
 
 </body>
