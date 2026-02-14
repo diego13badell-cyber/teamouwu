@@ -1,67 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Contrato del Amor ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Amor 💖</title>
 
 <style>
 body {
     margin: 0;
-    overflow: hidden;
+    padding: 0;
+    background: #f8b6b6;
     font-family: Arial, sans-serif;
     text-align: center;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    overflow-x: hidden;
 }
 
 h1 {
+    font-size: 3em;
     margin-top: 100px;
-    font-size: 40px;
     color: white;
     text-shadow: 2px 2px 10px red;
 }
 
+p {
+    font-size: 1.5em;
+    color: white;
+}
+
 button {
-    padding: 12px 25px;
-    font-size: 18px;
+    padding: 15px 25px;
+    font-size: 1.2em;
     border: none;
-    border-radius: 12px;
+    border-radius: 20px;
     cursor: pointer;
-    margin: 10px;
+    margin: 15px;
     transition: 0.3s;
 }
 
-#si {
-    background-color: #ff4d6d;
+#termsBtn {
+    background: #ddd;
+}
+
+#yesBtn {
+    background: #ff4d6d;
     color: white;
-    display: none;
 }
 
-#no {
-    background-color: white;
-    position: absolute;
+button:hover {
+    transform: scale(1.1);
 }
 
-#terminosBox {
+#termsBox {
     display: none;
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
     background: white;
+    width: 80%;
+    max-width: 400px;
+    margin: 20px auto;
     padding: 20px;
-    border-radius: 15px;
-    width: 300px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
-}
-
-#aceptarTerminos {
-    background-color: #ff4d6d;
-    color: white;
+    border-radius: 20px;
 }
 
 #final {
     display: none;
-    margin-top: 40px;
+    margin-top: 50px;
+}
+
+/* 🌹 Flores flotando */
+.flower {
+    position: fixed;
+    font-size: 25px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-50px); }
+    100% { transform: translateY(100vh); }
+}
+
+/* 💓 Animación temblar */
+@keyframes temblar {
+    0% { transform: translate(0px, 0px); }
+    20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(3px, -2px); }
+    60% { transform: translate(-2px, 3px); }
+    80% { transform: translate(2px, -3px); }
+    100% { transform: translate(0px, 0px); }
 }
 
 #final img {
@@ -69,104 +92,66 @@ button {
     border-radius: 25px;
     margin-top: 30px;
     box-shadow: 0 0 30px rgba(255,0,100,0.8);
-    animation: aparecer 2s ease-in-out;
-}
-
-@keyframes aparecer {
-    from { opacity:0; transform: scale(0.5); }
-    to { opacity:1; transform: scale(1); }
-}
-
-.rosa {
-    position: fixed;
-    top: -50px;
-    font-size: 25px;
-    animation: caer linear infinite;
-}
-
-@keyframes caer {
-    0% { transform: translateY(-50px) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(360deg); }
+    animation: temblar 0.3s infinite;
 }
 </style>
 </head>
 
 <body>
 
-<h1 id="titulo">¿Me acompañas este 14 de febrero? 💘🌹</h1>
+<button id="termsBtn">Ver Términos y Condiciones 📜</button>
+<button id="yesBtn">Sí mi amor ❤️</button>
 
-<button onclick="mostrarTerminos()">Ver Términos y Condiciones 📜</button>
-<button id="si" onclick="aceptar()">Sí mi amor ❤️</button>
-<button id="no" onmouseover="mover()">No 😢</button>
+<h1>Sabía que dirías que sí 😍❤️</h1>
+<p>Prepárate para nuestro 14 de febrero 🌹✨</p>
 
-<div id="terminosBox">
-    <h3>📜 Términos y Condiciones del Amor</h3>
-    <p>
-        ❤️ Prometo no pelear <br>
-        ❤️ Prometo dar abrazos ilimitados <br>
-        ❤️ Prometo besos extra ese día
-    </p>
-
-    <label>
-        <input type="checkbox" id="checkAmor">
-        Acepto cumplir el término principal:
-        <b>No pelear 😌</b>
-    </label>
-    <br><br>
-    <button id="aceptarTerminos" onclick="verificar()">Aceptar</button>
+<div id="termsBox">
+    <h2>Términos y Condiciones 💌</h2>
+    <p>1. No pelear 😡❌</p>
+    <p>2. Besitos obligatorios 💋</p>
+    <p>3. Mucho amor infinito 💖</p>
+    <button onclick="aceptar()">Acepto ❤️</button>
 </div>
 
 <div id="final">
-    <h1 style="color:white;">Sabía que dirías que sí 😍💖</h1>
-    <h2 style="color:white;">Prepárate para nuestro 14 de febrero 🌹✨</h2>
-    <img src="ee.jpg">
+    <h2>Te amo muchísimo 💕</h2>
+    <!-- CAMBIA "foto.jpg" por el nombre real de tu imagen -->
+    <img src="ee.jpg" alt="ee">
 </div>
 
 <script>
-function mostrarTerminos() {
-    document.getElementById("terminosBox").style.display = "block";
-}
+const termsBtn = document.getElementById("termsBtn");
+const yesBtn = document.getElementById("yesBtn");
+const termsBox = document.getElementById("termsBox");
+const final = document.getElementById("final");
 
-function verificar() {
-    let check = document.getElementById("checkAmor");
+termsBtn.onclick = function() {
+    termsBox.style.display = "block";
+};
 
-    if (check.checked) {
-        document.getElementById("terminosBox").style.display = "none";
-        document.getElementById("si").style.display = "inline-block";
-        alert("Contrato aceptado 😌💘 Ahora puedes decir que sí.");
-    } else {
-        alert("Debes aceptar el término principal 😏");
-    }
-}
+yesBtn.onclick = function() {
+    final.style.display = "block";
+};
 
 function aceptar() {
-    document.getElementById("titulo").style.display = "none";
-    document.getElementById("si").style.display = "none";
-    document.getElementById("no").style.display = "none";
-    document.getElementById("final").style.display = "block";
+    alert("Contrato aceptado 😍❤️ Ahora no se puede pelear 😌");
 }
 
-function mover() {
-    let x = Math.random() * (window.innerWidth - 100);
-    let y = Math.random() * (window.innerHeight - 50);
-    document.getElementById("no").style.left = x + "px";
-    document.getElementById("no").style.top = y + "px";
-}
-
-function crearRosa() {
-    const rosa = document.createElement("div");
-    rosa.classList.add("rosa");
-    rosa.innerHTML = "🌹";
-    rosa.style.left = Math.random() * window.innerWidth + "px";
-    rosa.style.animationDuration = (5 + Math.random() * 5) + "s";
-    document.body.appendChild(rosa);
+/* 🌹 Crear flores */
+function crearFlor() {
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+    flower.innerHTML = "🌹";
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(flower);
 
     setTimeout(() => {
-        rosa.remove();
-    }, 8000);
+        flower.remove();
+    }, 5000);
 }
 
-setInterval(crearRosa, 500);
+setInterval(crearFlor, 500);
 </script>
 
 </body>
