@@ -17,14 +17,9 @@ body {
 
 h1 {
     font-size: 3em;
-    margin-top: 120px;
+    margin-top: 150px;
     color: white;
     text-shadow: 2px 2px 10px red;
-}
-
-p {
-    font-size: 1.5em;
-    color: white;
 }
 
 button {
@@ -33,38 +28,49 @@ button {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    margin: 15px;
+    margin: 10px;
     transition: 0.3s;
-}
-
-#yesBtn {
-    background: #ff4d6d;
-    color: white;
-}
-
-#noBtn {
-    background: #555;
-    color: white;
-    position: absolute;
-}
-
-#termsBtn {
-    background: white;
 }
 
 button:hover {
     transform: scale(1.1);
 }
 
-/* 📜 Caja términos */
-#termsBox {
+#yesBtn {
+    background: #ff4d6d;
+    color: white;
     display: none;
+}
+
+#noBtn {
+    background: #555;
+    color: white;
+    position: absolute;
+    display: none;
+}
+
+#termsBtn {
     background: white;
-    width: 80%;
+}
+
+/* 📜 Modal */
+#termsModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+#termsContent {
+    background: white;
+    width: 90%;
     max-width: 400px;
-    margin: 20px auto;
     padding: 20px;
     border-radius: 20px;
+    margin: 100px auto;
 }
 
 /* 💕 Final */
@@ -85,19 +91,18 @@ button:hover {
     100% { transform: translateY(100vh); }
 }
 
-/* 💓 Temblar imagen */
+/* 💓 Temblar */
 @keyframes temblar {
-    0% { transform: translate(0px, 0px); }
-    20% { transform: translate(-3px, 2px); }
-    40% { transform: translate(3px, -2px); }
-    60% { transform: translate(-2px, 3px); }
-    80% { transform: translate(2px, -3px); }
-    100% { transform: translate(0px, 0px); }
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-3px,2px); }
+    50% { transform: translate(3px,-2px); }
+    75% { transform: translate(-2px,3px); }
+    100% { transform: translate(0,0); }
 }
 
 #final img {
     width: 300px;
-    border-radius: 25px;
+    border-radius: 20px;
     margin-top: 20px;
     box-shadow: 0 0 30px rgba(255,0,100,0.8);
     animation: temblar 0.3s infinite;
@@ -107,34 +112,50 @@ button:hover {
 
 <body>
 
-<button id="termsBtn">Ver Términos 📜</button>
+<h1>Hay algo importante antes 😌💌</h1>
 
-<h1>¿Quieres ser mi San Valentín? 😍</h1>
-<p>Prometo que será especial 💖</p>
+<button id="termsBtn">Ver Términos y Condiciones 📜</button>
+
+<!-- MODAL -->
+<div id="termsModal">
+    <div id="termsContent">
+        <h2>Términos y Condiciones 💖</h2>
+        <p>1. No pelear 😡❌</p>
+        <p>2. Besitos obligatorios 💋</p>
+        <p>3. Mucho amor infinito 💕</p>
+        <button id="acceptBtn">Acepto ❤️</button>
+    </div>
+</div>
 
 <button id="yesBtn">Sí mi amor ❤️</button>
 <button id="noBtn">No 😢</button>
 
-<div id="termsBox">
-    <h2>Términos y Condiciones 💌</h2>
-    <p>1. No pelear 😡❌</p>
-    <p>2. Besitos obligatorios 💋</p>
-    <p>3. Mucho amor infinito 💖</p>
-    <button onclick="aceptar()">Acepto ❤️</button>
-</div>
-
 <div id="final">
     <h2>Sabía que dirías que sí 😍❤️</h2>
     <p>Prepárate para nuestro 14 de febrero 🌹✨</p>
-    <img src="ee.jpg" alt="ee">
+    <img src="foto.jpg" alt="Nosotros">
 </div>
 
 <script>
+const termsBtn = document.getElementById("termsBtn");
+const termsModal = document.getElementById("termsModal");
+const acceptBtn = document.getElementById("acceptBtn");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const termsBtn = document.getElementById("termsBtn");
-const termsBox = document.getElementById("termsBox");
 const final = document.getElementById("final");
+
+/* Mostrar modal */
+termsBtn.onclick = function() {
+    termsModal.style.display = "block";
+};
+
+/* Aceptar términos */
+acceptBtn.onclick = function() {
+    termsModal.style.display = "none";
+    termsBtn.style.display = "none";
+    yesBtn.style.display = "inline-block";
+    noBtn.style.display = "inline-block";
+};
 
 /* Botón NO huye */
 noBtn.addEventListener("mouseover", () => {
@@ -144,21 +165,12 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.style.top = y + "px";
 });
 
-/* Mostrar final */
+/* Botón SÍ */
 yesBtn.onclick = function() {
     final.style.display = "block";
 };
 
-/* Mostrar términos */
-termsBtn.onclick = function() {
-    termsBox.style.display = "block";
-};
-
-function aceptar() {
-    alert("Contrato aceptado 😍❤️ Ahora no se puede pelear 😌");
-}
-
-/* 🌹 Flores */
+/* Flores */
 function crearFlor() {
     const flower = document.createElement("div");
     flower.classList.add("flower");
