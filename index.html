@@ -9,19 +9,20 @@
 body {
     margin: 0;
     padding: 0;
-    background: #f8b6b6;
+    background: linear-gradient(#ff9a9e, #fecfef);
     font-family: Arial, sans-serif;
     text-align: center;
     overflow: hidden;
 }
 
+/* TÍTULO */
 h1 {
-    font-size: 3em;
-    margin-top: 150px;
+    margin-top: 120px;
+    font-size: 2.5em;
     color: white;
-    text-shadow: 2px 2px 10px red;
 }
 
+/* BOTONES */
 button {
     padding: 15px 25px;
     font-size: 1.2em;
@@ -43,7 +44,7 @@ button:hover {
 }
 
 #noBtn {
-    background: #555;
+    background: #444;
     color: white;
     position: absolute;
     display: none;
@@ -53,46 +54,57 @@ button:hover {
     background: white;
 }
 
-/* 📜 Modal */
+/* MODAL */
 #termsModal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.6);
+    top: 0;
 }
 
 #termsContent {
     background: white;
     width: 90%;
     max-width: 400px;
+    margin: 100px auto;
     padding: 20px;
     border-radius: 20px;
-    margin: 100px auto;
 }
 
-/* 💕 Final */
+/* CARTA */
+#carta {
+    display: none;
+    margin: 30px auto;
+    width: 300px;
+    height: 200px;
+    background: white;
+    border-radius: 10px;
+    transform: rotateX(90deg);
+    transition: 1s;
+    padding: 20px;
+}
+
+#carta.abierta {
+    transform: rotateX(0deg);
+}
+
+/* FINAL */
 #final {
     display: none;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
-/* 🌹 Flores */
-.flower {
-    position: fixed;
-    font-size: 25px;
-    animation: fall linear infinite;
+#final img {
+    width: 280px;
+    border-radius: 20px;
+    margin-top: 20px;
+    animation: shake 0.3s infinite;
 }
 
-@keyframes fall {
-    0% { transform: translateY(-50px); }
-    100% { transform: translateY(100vh); }
-}
-
-/* 💓 Temblar */
-@keyframes temblar {
+/* TEMBLAR */
+@keyframes shake {
     0% { transform: translate(0,0); }
     25% { transform: translate(-3px,2px); }
     50% { transform: translate(3px,-2px); }
@@ -100,29 +112,32 @@ button:hover {
     100% { transform: translate(0,0); }
 }
 
-#final img {
-    width: 300px;
-    border-radius: 20px;
-    margin-top: 20px;
-    box-shadow: 0 0 30px rgba(255,0,100,0.8);
-    animation: temblar 0.3s infinite;
+/* CORAZONES */
+.heart {
+    position: fixed;
+    font-size: 25px;
+    animation: explode 2s ease-out forwards;
+}
+
+@keyframes explode {
+    0% { transform: scale(0); opacity:1; }
+    100% { transform: translateY(-200px) scale(2); opacity:0; }
 }
 </style>
 </head>
 
 <body>
 
-<h1>Hay algo importante antes 😌💌</h1>
+<h1>Antes de hacerte la pregunta... 💌</h1>
 
-<button id="termsBtn">Ver Términos y Condiciones 📜</button>
+<button id="termsBtn">Ver Términos 💖</button>
 
-<!-- MODAL -->
 <div id="termsModal">
     <div id="termsContent">
-        <h2>Términos y Condiciones 💖</h2>
+        <h2>Términos y Condiciones</h2>
         <p>1. No pelear 😡❌</p>
         <p>2. Besitos obligatorios 💋</p>
-        <p>3. Mucho amor infinito 💕</p>
+        <p>3. Amor infinito 💕</p>
         <button id="acceptBtn">Acepto ❤️</button>
     </div>
 </div>
@@ -130,11 +145,18 @@ button:hover {
 <button id="yesBtn">Sí mi amor ❤️</button>
 <button id="noBtn">No 😢</button>
 
+<div id="carta">
+    <h3>Mi amor 💖</h3>
+    <p>¿Me acompañas este 14 de febrero? 🌹✨</p>
+</div>
+
 <div id="final">
     <h2>Sabía que dirías que sí 😍❤️</h2>
-    <p>Prepárate para nuestro 14 de febrero 🌹✨</p>
-    <img src="foto.jpg" alt="Nosotros">
+    <img src="foto.jpg">
 </div>
+
+<!-- MÚSICA -->
+<audio id="musica" src="musica.mp3"></audio>
 
 <script>
 const termsBtn = document.getElementById("termsBtn");
@@ -142,19 +164,25 @@ const termsModal = document.getElementById("termsModal");
 const acceptBtn = document.getElementById("acceptBtn");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
+const carta = document.getElementById("carta");
 const final = document.getElementById("final");
+const musica = document.getElementById("musica");
 
-/* Mostrar modal */
-termsBtn.onclick = function() {
+/* Abrir términos */
+termsBtn.onclick = () => {
     termsModal.style.display = "block";
 };
 
 /* Aceptar términos */
-acceptBtn.onclick = function() {
+acceptBtn.onclick = () => {
     termsModal.style.display = "none";
     termsBtn.style.display = "none";
-    yesBtn.style.display = "inline-block";
-    noBtn.style.display = "inline-block";
+    carta.style.display = "block";
+    setTimeout(() => {
+        carta.classList.add("abierta");
+        yesBtn.style.display = "inline-block";
+        noBtn.style.display = "inline-block";
+    }, 500);
 };
 
 /* Botón NO huye */
@@ -165,26 +193,25 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.style.top = y + "px";
 });
 
-/* Botón SÍ */
-yesBtn.onclick = function() {
-    final.style.display = "block";
-};
-
-/* Flores */
-function crearFlor() {
-    const flower = document.createElement("div");
-    flower.classList.add("flower");
-    flower.innerHTML = "🌹";
-    flower.style.left = Math.random() * 100 + "vw";
-    flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    document.body.appendChild(flower);
-
-    setTimeout(() => {
-        flower.remove();
-    }, 5000);
+/* Explosión de corazones */
+function explosion() {
+    for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+    }
 }
 
-setInterval(crearFlor, 500);
+/* Botón SÍ */
+yesBtn.onclick = () => {
+    musica.play();
+    explosion();
+    final.style.display = "block";
+};
 </script>
 
 </body>
