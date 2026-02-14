@@ -11,17 +11,18 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(#ff9a9e, #fecfef);
-    text-align: center;
-    overflow: hidden; /* ahora sí bloqueamos scroll */
-    height: 100vh;
+    overflow: hidden; /* sin scroll */
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* CONTENEDOR INICIAL */
 #main {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 /* BOTONES */
@@ -60,42 +61,42 @@ button:hover {
 #termsModal {
     display: none;
     position: fixed;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0,0,0,0.6);
-    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #termsContent {
     background: white;
+    padding: 25px;
+    border-radius: 20px;
     width: 90%;
     max-width: 400px;
-    margin: 120px auto;
-    padding: 20px;
-    border-radius: 20px;
+    text-align: center;
 }
 
 /* FINAL PANTALLA COMPLETA */
 #final {
     display: none;
     position: fixed;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: linear-gradient(#ff4d6d, #ff99ac);
-    top: 0;
-    left: 0;
     color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
 }
 
 #finalContent {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    max-width: 90%;
 }
 
 #final img {
     width: 320px;
+    max-width: 85vw;
     border-radius: 20px;
     margin-top: 20px;
     animation: shake 0.3s infinite;
@@ -165,7 +166,7 @@ const musica = document.getElementById("musica");
 
 /* Mostrar términos */
 termsBtn.onclick = () => {
-    termsModal.style.display = "block";
+    termsModal.style.display = "flex";
 };
 
 /* Aceptar */
@@ -199,10 +200,10 @@ function explosion() {
 
 /* SÍ */
 yesBtn.onclick = () => {
-    if (musica) musica.play().catch(()=>{});
+    musica.play().catch(()=>{});
     explosion();
     document.getElementById("main").style.display = "none";
-    final.style.display = "block";
+    final.style.display = "flex";
 };
 </script>
 
