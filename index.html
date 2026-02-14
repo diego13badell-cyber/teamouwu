@@ -14,44 +14,25 @@
 body{
     font-family: Arial, sans-serif;
     background:#f497a9;
-    overflow:hidden;
     height:100vh;
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
+    overflow:hidden;
 }
 
-/* Fondo corazones */
-body::before{
-    content:"💖 💕 💗 💓 💘 💞 💝 💟";
-    position:fixed;
-    font-size:40px;
-    opacity:0.2;
-    width:100%;
-    height:100%;
-    animation:float 20s linear infinite;
-}
-
-@keyframes float{
-    from{transform:translateY(100vh);}
-    to{transform:translateY(-100vh);}
-}
-
-h1{
-    font-size:38px;
-    color:white;
-    margin-bottom:15px;
-}
-
+/* Caja blanca */
 .card{
     background:white;
     padding:25px;
-    border-radius:15px;
+    border-radius:20px;
     width:320px;
-    margin-bottom:20px;
-    box-shadow:0 0 20px rgba(0,0,0,0.2);
+    box-shadow:0 0 25px rgba(0,0,0,0.2);
+}
+
+h1{
+    margin-bottom:15px;
 }
 
 button{
@@ -64,6 +45,15 @@ button{
     transition:0.3s;
 }
 
+button:hover{
+    transform:scale(1.1);
+}
+
+.aceptar{
+    background:#ff4d6d;
+    color:white;
+}
+
 .si{
     background:#ff4d6d;
     color:white;
@@ -74,14 +64,11 @@ button{
     color:white;
 }
 
-button:hover{
-    transform:scale(1.1);
-}
-
 /* Imagen final */
 #final{
     display:none;
-    margin-top:10px;
+    flex-direction:column;
+    align-items:center;
 }
 
 #final img{
@@ -89,10 +76,10 @@ button:hover{
     height:350px;
     object-fit:cover;
     border-radius:20px;
-    box-shadow:0 0 25px rgba(0,0,0,0.3);
+    margin-top:20px;
+    animation:shake 0.4s infinite;
 }
 
-/* Efecto temblor */
 @keyframes shake{
     0%{transform:translate(0,0);}
     25%{transform:translate(3px,-3px);}
@@ -100,50 +87,57 @@ button:hover{
     75%{transform:translate(3px,3px);}
     100%{transform:translate(0,0);}
 }
-
-.shake{
-    animation:shake 0.5s infinite;
-}
-
 </style>
 </head>
 
 <body>
 
-<h1>Antes de hacerte la pregunta... 💌</h1>
+<!-- 🎵 Música -->
+<audio id="musica" src="musica.mp3" loop></audio>
 
-<div class="card">
+<!-- 🔒 Términos -->
+<div id="terminos" class="card">
+    <h2>Términos y Condiciones 📜</h2>
+    <p>1. No pelear 😌</p>
+    <p>2. Abrazos obligatorios 🤗</p>
+    <p>3. Besitos ilimitados 💋</p>
+    <button class="aceptar" onclick="aceptar()">Acepto ❤️</button>
+</div>
+
+<!-- 💌 Pregunta -->
+<div id="pregunta" class="card" style="display:none;">
     <h2>Mi amor 💖</h2>
     <p>¿Me acompañas este 14 de febrero? 🌹</p>
+    <button class="si" onclick="mostrarFinal()">Sí mi amor ❤️</button>
+    <button class="no" onclick="moverNo()">No 😢</button>
 </div>
 
-<div>
-    <button class="si" onclick="aceptar()">Sí mi amor ❤️</button>
-    <button class="no" onmouseover="mover(this)">No 😢</button>
-</div>
-
+<!-- 🎉 Final -->
 <div id="final">
     <h1>Sabía que dirías que sí 😍❤️</h1>
-    <img src="ee.jpg" id="ee">
+    <img src="ee.jpg" alt="ee">
 </div>
 
 <script>
 
-function mover(boton){
+function aceptar(){
+    document.getElementById("terminos").style.display="none";
+    document.getElementById("pregunta").style.display="block";
+
+    // 🔥 AQUÍ empieza la música (por interacción)
+    document.getElementById("musica").play();
+}
+
+function mostrarFinal(){
+    document.getElementById("pregunta").style.display="none";
+    document.getElementById("final").style.display="flex";
+}
+
+function moverNo(){
+    let boton = document.querySelector(".no");
     boton.style.position="absolute";
     boton.style.top=Math.random()*80+"%";
     boton.style.left=Math.random()*80+"%";
-}
-
-function aceptar(){
-    document.querySelector(".card").style.display="none";
-    document.querySelector(".si").style.display="none";
-    document.querySelector(".no").style.display="none";
-    document.querySelector("h1").style.display="none";
-    
-    document.getElementById("final").style.display="block";
-    
-    document.getElementById("foto").classList.add("shake");
 }
 
 </script>
