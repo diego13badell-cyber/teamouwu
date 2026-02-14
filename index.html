@@ -12,10 +12,11 @@ body {
     background: linear-gradient(#ff9a9e, #fecfef);
     font-family: Arial, sans-serif;
     text-align: center;
-    overflow: hidden;
+    overflow-x: hidden; /* permite scroll vertical */
+    min-height: 100vh;
 }
 
-/* TÍTULO */
+/* TITULO */
 h1 {
     margin-top: 120px;
     font-size: 2.5em;
@@ -76,24 +77,24 @@ button:hover {
 /* CARTA */
 #carta {
     display: none;
-    margin: 30px auto;
+    margin: 50px auto;
     width: 300px;
-    height: 200px;
     background: white;
-    border-radius: 10px;
+    border-radius: 15px;
+    padding: 20px;
     transform: rotateX(90deg);
     transition: 1s;
-    padding: 20px;
 }
 
-#carta.abierta {
+#abierta {
     transform: rotateX(0deg);
 }
 
 /* FINAL */
 #final {
     display: none;
-    margin-top: 30px;
+    margin-top: 50px;
+    margin-bottom: 100px;
 }
 
 #final img {
@@ -132,6 +133,7 @@ button:hover {
 
 <button id="termsBtn">Ver Términos 💖</button>
 
+<!-- MODAL -->
 <div id="termsModal">
     <div id="termsContent">
         <h2>Términos y Condiciones</h2>
@@ -152,10 +154,10 @@ button:hover {
 
 <div id="final">
     <h2>Sabía que dirías que sí 😍❤️</h2>
-    <img src="ee.jpg">
+    <img src="ee.jpg" alt="ee">
 </div>
 
-<!-- MÚSICA -->
+<!-- MÚSICA (OPCIONAL) -->
 <audio id="musica" src="musica.mp3"></audio>
 
 <script>
@@ -178,8 +180,9 @@ acceptBtn.onclick = () => {
     termsModal.style.display = "none";
     termsBtn.style.display = "none";
     carta.style.display = "block";
+
     setTimeout(() => {
-        carta.classList.add("abierta");
+        carta.style.transform = "rotateX(0deg)";
         yesBtn.style.display = "inline-block";
         noBtn.style.display = "inline-block";
     }, 500);
@@ -193,7 +196,7 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.style.top = y + "px";
 });
 
-/* Explosión de corazones */
+/* Explosión corazones */
 function explosion() {
     for (let i = 0; i < 30; i++) {
         const heart = document.createElement("div");
@@ -208,9 +211,10 @@ function explosion() {
 
 /* Botón SÍ */
 yesBtn.onclick = () => {
-    musica.play();
+    if (musica) musica.play().catch(()=>{});
     explosion();
     final.style.display = "block";
+    final.scrollIntoView({ behavior: "smooth" });
 };
 </script>
 
